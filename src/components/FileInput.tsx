@@ -19,12 +19,15 @@ export default function FileInput(): JSX.Element {
   const processLayout = () => {
     const content = fileReader.result;
     const mapString = content.split("\n");
+    const mapTrimmed = mapString.map((s: string) =>
+      s.replace(/\r\n|\n|\r/gm, "")
+    );
 
-    const validInput = validateInput(mapString);
+    const validInput = validateInput(mapTrimmed);
     if (!validInput) return dispatch(endSimulation("Invalid Input Data"));
 
-    const mapLayout = mapString.map((row: string) => row.split(""));
-    if (mapString?.length) {
+    const mapLayout = mapTrimmed.map((row: string) => row.split(""));
+    if (mapTrimmed?.length) {
       return dispatch({
         type: "GENERATE_MAP",
         payload: mapLayout,
