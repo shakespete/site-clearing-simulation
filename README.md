@@ -1,8 +1,9 @@
 ## Developer Notes
 
 1) This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) using TypeScript boiler plate.
-2) Sample input files can be found in the directory inside the root: input_files
-3) Canvas map site is generated on file upload. The generation of the canvas size is not dynamic, the best fit is a data set that is 22 blocks wide and 11 blocks high (use input_fit_to_canvas.txt sample input). Any data set higher than given bounds will still generate the correct total but not shown by the limited canvas space.
+2) The development of the application was initially started in: https://github.com/shakespete/react/tree/dev/TS/site-clearing-simulation. You may check this for a more complete history of commits.
+3) Sample input files can be found in the directory inside the root of the project: input_files
+4) Canvas map site is generated on file upload. The generation of the canvas size is not dynamic, the best fit is a data set that is 22 blocks wide and 11 blocks high (use `input_fit_to_canvas.txt` sample input). Any data set higher than given bounds will still generate the correct total but not shown by the limited canvas space.
 
 ## Assumptions Made Regarding Requirements
 
