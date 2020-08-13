@@ -19,7 +19,7 @@
 
 ## Design and Approach
 
-The application uses a Redux like state management system centered around the `useContext` and `useReducer` hooks. Redux was a possible alternative but given the simplicity of the application, the hooks were fit for the purpose. The whole `<App>` is wrapped by the `<MapProvider>` thus allowing access to all the child components. All business logic is placed within the action creators under the actions folder and the reducer functions is relegated to a simple update of the store. All unit tests can be found in the `App.spec.tsx` file.
+The application uses a Redux like state management system centered around the `useContext` and `useReducer` hooks. Redux was a possible alternative but given the simplicity of the application, the hooks were fit for the purpose. The whole `<App>` is wrapped by the `<MapProvider>` thus allowing access to the store for all child components. All business logic is placed within the action creators under the actions folder and the reducer functions is relegated to a simple update of the store. All unit tests can be found in the `App.spec.tsx` file. `styled-components` is used to create components with css styling.
 
 In terms of user interface, the application shows all 3 main features at the same time. On file upload a site map is plotted on a canvas showing the layout of the data. On traversal the map is updated indicated by green blocks. The cost report and command list is also shown and updated on user update. The total cost is computed when the application is terminated with the option to reset. Invalid input data is also not accepted.
 
