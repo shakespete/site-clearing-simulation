@@ -19,6 +19,17 @@ const Canvas = styled.canvas`
   border: 2px solid #01678c;
 `;
 
+const Instructions = styled.div`
+  width: 200px;
+  padding: 0px 20px;
+  border-radius: 4px;
+  background-color: #335c72;
+  color: #fff;
+  position: absolute;
+  top: 100px;
+  left: 50px;
+`;
+
 export default function Map({ width, height }: IMapProps): JSX.Element {
   const { state } = useMap();
   const layout = state.mapSite;
@@ -71,7 +82,28 @@ export default function Map({ width, height }: IMapProps): JSX.Element {
   return (
     <MapContainer>
       <Canvas ref={canvasRef} width={width} height={height} />
-      {state.simInProgress && <VirtualControls />}
+      {state.simInProgress ? (
+        <VirtualControls />
+      ) : state.message.length === 0 ? (
+        <Instructions>
+          <p>
+            Welcome to the <strong>Aconex Site Clearing Simulator</strong>. This
+            is a map of site.
+          </p>
+          <p>
+            The bulldozer is currently located at the Northern edge of the site,
+            immediately to the West of the site, and facing East.
+          </p>
+        </Instructions>
+      ) : (
+        <Instructions>
+          <p>Thank you for using the Aconex Site Clearing Simulator.</p>
+          <p>
+            The costs for this land clearing operation are presented in the
+            table below.
+          </p>
+        </Instructions>
+      )}
     </MapContainer>
   );
 }
