@@ -1,7 +1,53 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { advance, changeDir, endSimulation } from "../actions";
 import { IAction } from "../interfaces";
 import { useMap } from "../context/MapProvider";
+
+const VirtualCtrlContainer = styled.div`
+  position: absolute;
+  bottom: 0px;
+  right: 150px;
+`;
+
+const CtrlRow = styled.div`
+  display: flex;
+`;
+
+const VirtualBtn = styled.button`
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  background-color: #424242;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  margin: 3px;
+`;
+
+const CtrlInput = styled.input`
+  width: 42px;
+  font-size: 20px;
+  text-align: center;
+  margin: 3px;
+`;
+
+const QuitBtn = styled.button`
+  width: 106px;
+  height: 50px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  background-color: #424242;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  margin: 3px;
+`;
 
 export default function VirtualControls(): JSX.Element {
   const { state, dispatch } = useMap();
@@ -24,44 +70,29 @@ export default function VirtualControls(): JSX.Element {
   };
 
   return (
-    <div data-testid="virtual-control" className="virtualBtContainer">
-      <div className="ctrlRow">
-        <button
-          className="virtualBt"
-          onClick={advanceHandler}
-          data-testid="adv-btn"
-        >
+    <VirtualCtrlContainer data-testid="virtual-control">
+      <CtrlRow>
+        <VirtualBtn data-testid="adv-btn" onClick={advanceHandler}>
           A
-        </button>
-        <input
+        </VirtualBtn>
+        <CtrlInput
           data-testid="steps-input"
-          type="number"
-          className="ctrlInput"
-          value={blocks}
           onChange={onChangeHandler}
+          type="number"
+          value={blocks}
         />
-      </div>
-      <div className="ctrlRow">
-        <button
-          data-testid="left-btn"
-          className="virtualBt"
-          onClick={() => turnHandler("l")}
-        >
+      </CtrlRow>
+      <CtrlRow>
+        <VirtualBtn data-testid="left-btn" onClick={() => turnHandler("l")}>
           L
-        </button>
-        <button
-          data-testid="right-btn"
-          className="virtualBt"
-          onClick={() => turnHandler("r")}
-        >
+        </VirtualBtn>
+        <VirtualBtn data-testid="right-btn" onClick={() => turnHandler("r")}>
           R
-        </button>
-      </div>
-      <div>
-        <button data-testid="quit-btn" className="quitBt" onClick={quitHandler}>
-          QUIT
-        </button>
-      </div>
-    </div>
+        </VirtualBtn>
+      </CtrlRow>
+      <QuitBtn data-testid="quit-btn" onClick={quitHandler}>
+        QUIT
+      </QuitBtn>
+    </VirtualCtrlContainer>
   );
 }

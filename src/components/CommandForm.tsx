@@ -1,6 +1,17 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useMap } from "../context/MapProvider";
 import { advance, changeDir, endSimulation } from "../actions";
+
+const CommandInput = styled.input`
+  height: 30px;
+  font-size: 18px;
+`;
+
+const CurrDirection = styled.span`
+  color: #fff;
+  margin-left: 20px;
+`;
 
 export default function CommandForm(): JSX.Element {
   const [command, setCommand] = useState("");
@@ -47,16 +58,15 @@ export default function CommandForm(): JSX.Element {
 
   return (
     <form onSubmit={submit}>
-      <input
+      <CommandInput
         data-testid="command-input"
         type="text"
-        className="commField"
         onChange={onChangeHandler}
         value={command}
       />
-      <span className="currDir">
+      <CurrDirection>
         Current Direction: <strong>{state.currentDirection}</strong>
-      </span>
+      </CurrDirection>
     </form>
   );
 }

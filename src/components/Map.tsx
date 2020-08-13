@@ -1,7 +1,23 @@
 import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
 import { IMapProps } from "../interfaces";
 import { useMap } from "../context/MapProvider";
 import VirtualControls from "../components/VirtualControls";
+
+const MapContainer = styled.div`
+  position: relative;
+`;
+
+const Canvas = styled.canvas`
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 2px solid #01678c;
+`;
 
 export default function Map({ width, height }: IMapProps): JSX.Element {
   const { state } = useMap();
@@ -53,14 +69,9 @@ export default function Map({ width, height }: IMapProps): JSX.Element {
     }
   }, [layout, passed, rows, cols, width, height]);
   return (
-    <div className="mapContainer">
-      <canvas
-        ref={canvasRef}
-        className="canvasRect"
-        width={width}
-        height={height}
-      />
+    <MapContainer>
+      <Canvas ref={canvasRef} width={width} height={height} />
       {state.simInProgress && <VirtualControls />}
-    </div>
+    </MapContainer>
   );
 }

@@ -1,6 +1,23 @@
 import React, { useRef } from "react";
+import styled from "styled-components";
 import { useMap } from "../context/MapProvider";
 import { endSimulation } from "../actions";
+
+const FileInputButton = styled.div`
+  font-size: 18px;
+  text-align: center;
+  margin-top: 0;
+  height: 40px;
+  width: 200px;
+  border-radius: 4px;
+  border: none;
+  background-color: #759c6c;
+  color: #ffffff;
+  text-shadow: none;
+  line-height: 40px;
+  vertical-align: middle;
+  cursor: pointer;
+`;
 
 const validateInput = (inputArr: string[]): boolean => {
   const arr = inputArr.map((a: string) => a.length);
@@ -52,9 +69,7 @@ export default function FileInput(): JSX.Element {
 
   return (
     <>
-      <div className="btn" onClick={triggerFileInput}>
-        File Input
-      </div>
+      <FileInputButton onClick={triggerFileInput}>File Input</FileInputButton>
       <input
         data-testid="text-file-input"
         type="file"
