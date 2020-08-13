@@ -15,6 +15,10 @@
 3) run `npm start`
 4) run `npm test -- --coverage --watchAll=false` to generate unit test coverage
 
+## Design and Approach
+
+The application uses a Redux like state management system centered around the `useContext` and `useReducer` hooks. Redux was a possible alternative but given the simplicity of the application, the hooks were fit for the purpose. The whole `<App>` is wrapped by the `<MapProvider>` thus allowing access to all the child components. All business logic is placed within the action creators under the actions folder and the reducer functions is relegated to a simple update of the store. All unit tests can be found in the `App.spec.tsx` file.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
