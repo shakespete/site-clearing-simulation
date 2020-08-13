@@ -22,6 +22,18 @@ const initialState: IState = {
 const MapContext = createContext<IState | any>(initialState);
 export const useMap = (): any => useContext(MapContext);
 
+const computeTotal = (store: IState): number => {
+  let uncleared = 0;
+  for (let i = 0; i < store.totalRows; ++i) {
+    for (let j = 0; j < store.totalCols; ++j) {
+      if (store.visited[i][j] === 0 && store.mapSite[i][j] !== "T") {
+        uncleared++;
+      }
+    }
+  }
+  return uncleared;
+};
+
 function reducer(state: IState, action: IAction): IState {
   const mapLayout = action.payload;
   const mapRows = mapLayout.length;
@@ -43,7 +55,11 @@ function reducer(state: IState, action: IAction): IState {
       };
     case "ADVANCE": {
       let message = "";
-      if (action.payload.protected) message = "Destruction of Protected Tree";
+      let unclearedTotal = 0;
+      if (action.payload.protected) {
+        message = "Destruction of Protected Tree";
+        unclearedTotal = computeTotal(state);
+      }
 
       return {
         ...state,
@@ -54,6 +70,7 @@ function reducer(state: IState, action: IAction): IState {
         fuelUsage: state.fuelUsage + action.payload.fuel,
         paintDmg: state.paintDmg + action.payload.paint,
         protectedTree: action.payload.protected,
+        unclearedSquares: unclearedTotal,
         message,
       };
     }
@@ -65,20 +82,13 @@ function reducer(state: IState, action: IAction): IState {
       };
     }
     case "END_SIMULATION": {
-      let uncleared = 0;
-      for (let i = 0; i < state.totalRows; ++i) {
-        for (let j = 0; j < state.totalCols; ++j) {
-          if (state.visited[i][j] === 0 && state.mapSite[i][j] !== "T") {
-            uncleared++;
-          }
-        }
-      }
+      const unclearedTotal = computeTotal(state);
 
       return {
         ...state,
         simInProgress: false,
         message: action.payload,
-        unclearedSquares: uncleared,
+        unclearedSquares: unclearedTotal,
       };
     }
     case "RESET_SIM": {
